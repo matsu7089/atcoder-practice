@@ -36,3 +36,40 @@ const gcd = (a, b) => {
 const lcm = (a, b) => {
   return (a * b) / gcd(a, b)
 }
+
+/**
+ * 階乗計算
+ * @param {Number} n
+ * @returns {Number}
+ */
+const factorial = (n) => {
+  let ret = 1
+  for (let i = 2; i <= n; i++) {
+    ret *= i
+  }
+  return ret
+}
+
+/**
+ * 順列計算
+ * @param {Number} n
+ * @param {Number} r
+ * @returns {Number}
+ */
+const permutation = (n, r) => {
+  let ret = n
+  for (let i = 1; i < r; i++) {
+    ret *= n - i
+  }
+  return ret
+}
+
+/**
+ * 組み合わせ計算
+ * @param {Number} n
+ * @param {Number} r
+ * @returns {Number}
+ */
+const combination = (n, r) => {
+  return permutation(n, r) / factorial(r)
+}
