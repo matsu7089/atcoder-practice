@@ -73,3 +73,34 @@ const permutation = (n, r) => {
 const combination = (n, r) => {
   return permutation(n, r) / factorial(r)
 }
+
+/**
+ * a ** b % m を算出
+ * @param {BigInt} a
+ * @param {BigInt} b
+ * @param {BigInt} m
+ */
+const modPow = (a, b, m) => {
+  let p = a
+  let ret = 1n
+  for (let i = 0n; i < 30n; i++) {
+    if ((b & (1n << i)) !== 0n) {
+      ret *= p
+      ret %= m
+    }
+    p *= p
+    p %= m
+  }
+  return ret
+}
+
+/**
+ * a / b % m を算出
+ * @param {BigInt} a
+ * @param {BigInt} b
+ * @param {BigInt} m
+ * @returns
+ */
+const modDiv = (a, b, m) => {
+  return (a * modPow(b, m - 2n)) % m
+}
