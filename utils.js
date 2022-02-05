@@ -57,8 +57,8 @@ const factorial = (n) => {
  * @returns {Number}
  */
 const permutation = (n, r) => {
-  let ret = n
-  for (let i = 1; i < r; i++) {
+  let ret = 1
+  for (let i = 0; i < r; i++) {
     ret *= n - i
   }
   return ret
