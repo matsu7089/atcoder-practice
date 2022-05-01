@@ -104,3 +104,58 @@ const modPow = (a, b, m) => {
 const modDiv = (a, b, m) => {
   return (a * modPow(b, m - 2n)) % m
 }
+
+/**
+ * 簡易キュー
+ */
+const q = {
+  d: [],
+  h: 0,
+  len: () => q.d.length - q.h,
+  push: (v) => q.d.push(v),
+  top: () => (q.len() ? q.d[q.h] : null),
+  pop: () => (q.len() ? q.d[q.h++] : null),
+}
+
+/**
+ * 優先度付きキュー
+ */
+const hq = {
+  d: [],
+  len: () => hq.d.length,
+  top: () => hq.d[0],
+  push: (v) => {
+    let i = hq.d.push(v) - 1
+    let p = (i - 1) >> 1
+
+    while (v < hq.d[p]) {
+      hq.d[i] = hq.d[p]
+      hq.d[p] = v
+      i = p
+      p = (i - 1) >> 1
+    }
+  },
+  _c: (i) => {
+    const l = (i << 1) + 1
+    const r = l + 1
+    return hq.d[r] < hq.d[l] ? r : l
+  },
+  pop: () => {
+    if (!hq.len()) return null
+    const h = hq.top()
+    const l = hq.d.pop()
+    if (!hq.len()) return h
+
+    hq.d[0] = l
+    let i = 0
+    let c = hq._c(i)
+
+    while (hq.d[c] < l) {
+      hq.d[i] = hq.d[c]
+      hq.d[c] = l
+      i = c
+      c = hq._c(i)
+    }
+    return h
+  },
+}
